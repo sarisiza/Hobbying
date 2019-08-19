@@ -1,10 +1,11 @@
 /*
  * 
- * This code creats an alarm to prevent crashing
+ * This code creates an alarm to prevent crashing
  * 
  Circuit:
  * Echo connected to D4
  * Trig connected to D5
+ * Buzzer connected to D9 with 100ohms resistor
  * 
  */
 
@@ -48,9 +49,10 @@ void loop() {
   //calculate distance in CM
   distCM = pulseMs/29.387/2;
 
-  //get four differenranges of distance for switch
+  //get four different ranges of distance for switch
   sel = map(distCM,2,148,0,3);
 
+ //update frequency and duration of alarm
   switch(sel){
     case 0:
       freq = 1000;
@@ -74,6 +76,7 @@ void loop() {
   Serial.println(distCM);
   Serial.println(freq);
 
+  //turn buzzer on and off
   tone(buzz,freq);
   delay(ms);
   noTone(buzz);
